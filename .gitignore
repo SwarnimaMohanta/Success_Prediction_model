@@ -1,0 +1,16 @@
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.h5
+*.hdf5
+*.log
+
+# ---- Virtual Environment ----
+venv/
+env/
+.prenv/
+prenv/
+*.swp
