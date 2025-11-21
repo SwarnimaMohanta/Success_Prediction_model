@@ -14,25 +14,30 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Load Model & Scaler
 # ---------------------------
 @st.cache_resource
+import os
+import joblib
+
 def load_model():
-    """Load the XGBoost Model"""
-    possible_paths = [
-        'models/movie_predictor.pkl',
-        '../models/movie_predictor.pkl',
-        'movie_predictor.pkl',
-        os.path.join(os.path.dirname(__file__), '..', 'models', 'movie_predictor.pkl')
-    ]
-    
-    for path in possible_paths:
-        if os.path.exists(path):
-            try:
-                with open(path, 'rb') as f:
-                    model = pickle.load(f)
-                    return model, path
-            except Exception as e:
-                continue
-    
-    return None, None
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    project_dir = os.path.abspath(os.path.join(base_dir, ".."))
+
+    model_path = os.path.join(project_dir, "models", "movie_predictor.pkl")
+    scaler_path = os.path.join(project_dir, "data", "processed", "scaler.pkl")
+
+    print("MODEL PATH:", model_path)
+    print("SCALER PATH:", scaler_path)
+
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model not found at {model_path}")
+
+    if not os.path.exists(scaler_path):
+        raise FileNotFoundError(f"Scaler not found at {scaler_path}")
+
+    model = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
+
+    return model, scaler
+
 
 @st.cache_resource
 def load_scaler():
