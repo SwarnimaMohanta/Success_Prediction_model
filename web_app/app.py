@@ -2,7 +2,6 @@
 import streamlit as st
 import numpy as np
 import sys
-import os
 import pickle
 import traceback
 
