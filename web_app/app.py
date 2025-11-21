@@ -4,6 +4,8 @@ import numpy as np
 import sys
 import pickle
 import traceback
+import os
+import joblib
 
 # Add parent directory to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -13,8 +15,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Load Model & Scaler
 # ---------------------------
 @st.cache_resource
-import os
-import joblib
 
 def load_model():
     base_dir = os.path.dirname(os.path.abspath(__file__))
